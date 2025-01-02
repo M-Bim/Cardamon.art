@@ -2,71 +2,46 @@
 definePageMeta({
     layout: "default",
 });
-const items = [
+
+const socialLinks = [
     {
-        label: "Tumblr",
-        content:
-            "Hi i'm Cardamon, I am an illustrator and soon-to-be author who specializes in character-driven artwork and storytelling.",
-        icon: "i-heroicons-question-mark-circle",
+        name: "Twitter",
+        icon: "i-ri-twitter-fill",
+        url: "https://x.com/cardamonkideki",
     },
     {
-        label: "Instagram",
-        content: "Deirdre is a webcomic series currently in development.",
-        icon: "i-heroicons-question-mark-circle", //change icon to something more suited
+        name: "Tumblr",
+        icon: "i-ri-tumblr-fill",
+        url: "https://nomadrac.tumblr.com",
     },
     {
-        label: "Twitter",
-        content:
-            "The Autobiography of Cardamon (TAOC) is a semi-autobiography written by me, Cardamon!",
-        icon: "i-heroicons-question-mark-circle", //change icon to something more suited
+        name: "Instagram",
+        icon: "i-akar-icons-instagram-fill", // or appropriate icon name
+        url: "https://bsky.app/profile/yourusername",
     },
     {
-        label: "Bluesky",
-        content:
-            "Fandom Policy: The policy creators establish for their fandoms, especially since some fans may mistakenly claim ownership of the work.\n\nAll Fanworks are accepted and appreciated.\nDO NOT DOX/HARASS PEOPLE OVER FANWORKS",
-        icon: "i-heroicons-question-mark-circle", //change icon to something more suited
-    },
-    {
-        label: "Youtube",
-        content:
-            "Fandom Policy: The policy creators establish for their fandoms, especially since some fans may mistakenly claim ownership of the work.\n\nAll Fanworks are accepted and appreciated.\nDO NOT DOX/HARASS PEOPLE OVER FANWORKS",
-        icon: "i-heroicons-question-mark-circle", //change icon to something more suited
-    },
-    {
-        label: "Email",
-        content: "put link",
-        icon: "i-heroicons-question-mark-circle", //change icon to something more suited
+        name: "Bluesky",
+        icon: "i-simple-icons-bluesky", // or appropriate icon name
+        url: "https://bsky.app/profile/yourusername",
     },
 ];
 </script>
+
 <template>
-    <h1>Follow Me</h1>
-    <UAccordion
-        color="lime"
-        variant="link"
-        size="xl"
-        :items="[
-            {
-                label: '1. What is Nuxt UI?',
-                content:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            },
-            {
-                label: '2. Getting Started',
-                content:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            },
-            {
-                label: '3. Theming',
-                content:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            },
-            {
-                label: '4. Components',
-                content:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            },
-        ]"
-    />
-    <template> </template>
+    <div class="p-4">
+        <h1 class="text-2xl font-bold mb-6">Follow Me</h1>
+
+        <div class="flex flex-col gap-4">
+            <NuxtLink
+                v-for="link in socialLinks"
+                :key="link.name"
+                :to="link.url"
+                target="_blank"
+                class="flex items-center gap-2 p-2 rounded-lg hover:bg-lime-300 transition-colors"
+            >
+                <UIcon :name="link.icon" class="text-2xl" />
+                {{ link.name }}
+            </NuxtLink>
+        </div>
+    </div>
 </template>

@@ -1,8 +1,18 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from "nuxt/config";
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@nuxt/scripts", "@nuxt/image", "@nuxtjs/supabase"],
+  modules: [
+    "@nuxt/ui",
+    "@nuxt/scripts",
+    "@nuxt/image",
+    "@nuxtjs/supabase",
+    "@nuxthub/core",
+    "@nuxtjs/medusa",
+    "@nuxtjs/seo",
+  ],
   supabase: {
     // Options
     url: process.env.SUPABASE_URL,
@@ -17,6 +27,20 @@ export default defineNuxtConfig({
     },
   },
   image: {
-    // Options
+    domains: ["https://zvplqgopkztvgbwknbwb.supabase.co"],
+    providers: {
+      myProvider: {
+        name: "supabase", // optional value to overrider provider name
+        provider: "~/providers/supabase.ts", // Path to custom provider
+        options: {
+          // ... provider options
+          baseURL: "https://zvplqgopkztvgbwknbwb.supabase.co",
+        },
+      },
+    },
+  },
+  hub: {
+    // NuxtHub options
+    blob: true,
   },
 });

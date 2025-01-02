@@ -1,22 +1,17 @@
-<script setup lang="ts">
-definePageMeta({
-    layout: "default",
-});
-</script>
+<script setup lang="ts"></script>
 <template>
     <div class="grid grid-cols-4 md:grid-cols-6 gap-4">
         <div>
-            <img
-                class="h-auto max-w-full rounded-lg object-fill"
-                provider="supabase"
-                src="https://zvplqgopkztvgbwknbwb.supabase.co/storage/v1/object/public/artworks/artwork/FishImage.jpeg"
-                alt="a fish"
+            <NuxtImg
+                class="h-auto max-w-full rounded-lg"
+                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+                alt=""
             />
         </div>
         <div>
             <img
-                class="h-auto max-w-full rounded-lg object-fill"
-                src="https://zvplqgopkztvgbwknbwb.supabase.co/storage/v1/object/public/artworks/artwork/I%20bought%20a%20gun!.PNG?t=2025-01-01T03%3A20%3A34.514Z"
+                class="h-auto max-w-full rounded-lg"
+                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
                 alt=""
             />
         </div>

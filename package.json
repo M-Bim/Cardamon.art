@@ -18,6 +18,10 @@
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@nuxtjs/supabase": "^1.4.5"
+    "@nuxthub/core": "npm:@nuxthub/core@nightly",
+    "@nuxtjs/medusa": "^1.0.0",
+    "@nuxtjs/seo": "^2.0.2",
+    "@nuxtjs/supabase": "^1.4.5",
+    "wrangler": "^3.99.0"
   }
 }
