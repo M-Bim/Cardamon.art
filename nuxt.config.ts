@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+<<<<<<< HEAD
 import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
@@ -54,3 +55,32 @@ export default defineNuxtConfig({
     // ... options
   },
 });
+=======
+export default defineNuxtConfig({
+  compatibilityDate: '2024-07-30',
+  future: { compatibilityVersion: 4 },
+  modules: [
+    '@nuxthub/core',
+    '@nuxt/fonts',
+    '@nuxt/ui',
+    '@nuxt/eslint',
+    '@vueuse/nuxt',
+    'nuxt-auth-utils'
+  ],
+  hub: {
+    blob: true
+  },
+  experimental: {
+    viewTransition: true
+  },
+  devtools: { enabled: true },
+  eslint: {
+    config: {
+      stylistic: {
+        quotes: 'single',
+        commaDangle: 'never'
+      }
+    }
+  }
+})
+>>>>>>> 67c9cf07b1c619a6d45f18954bd4cf0e38068851
