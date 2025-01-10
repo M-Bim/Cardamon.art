@@ -44,6 +44,20 @@ export default defineNuxtConfig({
   },
   hub: {
     blob: true,
+    navigation: true,
+    environment: {
+      MEDUSA_BACKEND_URL: process.env.MEDUSA_BACKEND_URL,
+    },
+    api: {
+      baseURL: "/api/_hub",
+      cors: true,
+      endpoints: {
+        medusa: {
+          url: process.env.MEDUSA_BACKEND_URL,
+          prefix: "/store",
+        },
+      },
+    },
   },
   app: {
     head: {
