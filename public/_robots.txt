@@ -1,9 +1,7 @@
-# START nuxt-robots (indexable)
 User-agent: *
 Allow: /
-Disallow: /private/
+Disallow: /api/_hub/
 Disallow: /admin/
+# Use 'Crawl-delay' with a capital 'C'
 Crawl-delay: 10
-
-Sitemap: https://nuxtseo.com/sitemap.xml
-# END nuxt-robots
+Sitemap: https://cardamon.art/sitemap.xml
