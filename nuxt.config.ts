@@ -1,9 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-<<<<<<< HEAD
 import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
+  future: { compatibilityVersion: 4 },
   devtools: { enabled: true },
   modules: [
     "@nuxt/ui",
@@ -14,9 +14,11 @@ export default defineNuxtConfig({
     "@nuxtjs/medusa",
     "@nuxtjs/seo",
     "@nuxt/content",
+    "@nuxt/fonts",
+    "@vueuse/nuxt",
+    "nuxt-auth-utils",
   ],
   supabase: {
-    // Options
     url: process.env.SUPABASE_URL,
     key: process.env.SUPABASE_KEY,
     serviceKey: process.env.SUPABASE_SERVICE_KEY,
@@ -32,18 +34,30 @@ export default defineNuxtConfig({
     domains: ["https://zvplqgopkztvgbwknbwb.supabase.co"],
     providers: {
       myProvider: {
-        name: "supabase", // optional value to overrider provider name
-        provider: "~/providers/supabase.ts", // Path to custom provider
+        name: "supabase",
+        provider: "~/providers/supabase.ts",
         options: {
-          // ... provider options
           baseURL: "https://zvplqgopkztvgbwknbwb.supabase.co",
         },
       },
     },
   },
   hub: {
-    // NuxtHub options
     blob: true,
+    navigation: true,
+    environment: {
+      MEDUSA_BACKEND_URL: process.env.MEDUSA_BACKEND_URL,
+    },
+    api: {
+      baseURL: "/api/_hub",
+      cors: true,
+      endpoints: {
+        medusa: {
+          url: process.env.MEDUSA_BACKEND_URL,
+          prefix: "/store",
+        },
+      },
+    },
   },
   app: {
     head: {
@@ -52,35 +66,10 @@ export default defineNuxtConfig({
     },
   },
   content: {
-    // ... options
-  },
-});
-=======
-export default defineNuxtConfig({
-  compatibilityDate: '2024-07-30',
-  future: { compatibilityVersion: 4 },
-  modules: [
-    '@nuxthub/core',
-    '@nuxt/fonts',
-    '@nuxt/ui',
-    '@nuxt/eslint',
-    '@vueuse/nuxt',
-    'nuxt-auth-utils'
-  ],
-  hub: {
-    blob: true
+    documentDriven: true,
   },
   experimental: {
-    viewTransition: true
+    viewTransition: true,
+    componentIslands: true,
   },
-  devtools: { enabled: true },
-  eslint: {
-    config: {
-      stylistic: {
-        quotes: 'single',
-        commaDangle: 'never'
-      }
-    }
-  }
-})
->>>>>>> 67c9cf07b1c619a6d45f18954bd4cf0e38068851
+});
