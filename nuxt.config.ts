@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@nuxthub/core",
     "@nuxtjs/medusa",
     "@nuxtjs/seo",
+    "@nuxt/content",
   ],
   supabase: {
     // Options
@@ -42,5 +43,14 @@ export default defineNuxtConfig({
   hub: {
     // NuxtHub options
     blob: true,
+  },
+  app: {
+    head: {
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+    },
+  },
+  content: {
+    // ... options
   },
 });

@@ -2,9 +2,28 @@
 definePageMeta({
     layout: "default",
 });
+
+// supabaseService.js
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = "https://<your-project>.supabase.co";
+const supabaseKey = "<your-anon-key>";
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+export async function fetchArtData() {
+    const { data, error } = await supabase.from("art_table").select("*");
+    if (error) throw error;
+    return data;
+}
+
+import ArtGallery from "~/components/ArtGallery.vue";
 </script>
 <template>
     <div class="grid grid-cols-4 md:grid-cols-6 gap-4">
+        <ArtGallery
+            gridClass="grid grid-cols-2 gap-6"
+            :itemClass="'custom-class'"
+        />
         <div>
             <img
                 class="h-auto max-w-full rounded-lg object-fill"

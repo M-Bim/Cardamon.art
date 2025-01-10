@@ -1,1 +1,9 @@
+# START nuxt-robots (indexable)
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+Crawl-delay: 10
 
+Sitemap: https://nuxtseo.com/sitemap.xml
+# END nuxt-robots

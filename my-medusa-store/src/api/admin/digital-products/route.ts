@@ -27,13 +27,11 @@ export const GET = async (
     offset: metadata?.skip,
   });
 };
-// other imports...
+
 import { z } from "zod";
 import createDigitalProductWorkflow from "../../../workflows/create-digital-product";
 import { CreateDigitalProductMediaInput } from "../../../workflows/create-digital-product/steps/create-digital-product-medias";
-import { createDigitalProductsSchema } from "../../validation-schemas";
-
-// ...
+import { createDigitalProductsSchema } from "./validation-schemas";
 
 type CreateRequestBody = z.infer<typeof createDigitalProductsSchema>;
 
@@ -45,11 +43,13 @@ export const POST = async (
     input: {
       digital_product: {
         name: req.validatedBody.name,
-        medias: req.validatedBody.medias.map((media) => ({
-          fileId: media.file_id,
-          mimeType: media.mime_type,
-          ...media,
-        })) as Omit<CreateDigitalProductMediaInput, "digital_product_id">[],
+        medias: req.validatedBody.medias.map(
+          (media: { file_id: string; mime_type: string }) => ({
+            fileId: media.file_id,
+            mimeType: media.mime_type,
+            ...media,
+          }),
+        ) as Omit<CreateDigitalProductMediaInput, "digital_product_id">[],
       },
       product: req.validatedBody.product,
     },
