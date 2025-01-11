@@ -3,5 +3,4 @@ Allow: /
 Disallow: /api/_hub/
 Disallow: /admin/
 # Use 'Crawl-delay' with a capital 'C'
-Crawl-delay: 10
 Sitemap: https://cardamon.art/sitemap.xml
