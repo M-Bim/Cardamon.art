@@ -2,14 +2,40 @@
   "collectionName": "components_shared_media",
   "info": {
     "displayName": "Media",
-    "icon": "file-video"
+    "icon": "file-video",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "file": {
-      "allowedTypes": ["images", "files", "videos"],
+    "Art": {
       "type": "media",
-      "multiple": false
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "Comics": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "Animations": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }
