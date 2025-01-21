@@ -16,7 +16,6 @@ export default defineNuxtConfig({
     "@nuxt/scripts",
     "@nuxt/image",
     "@nuxtjs/supabase",
-    "@nuxthub/core",
     "@nuxtjs/medusa",
     "@nuxtjs/seo",
     "@nuxt/content",
@@ -49,12 +48,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  app: {
-    head: {
-      charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1",
-    },
-  },
+
   strapi: {
     url: process.env.STRAPI_URL || "http://localhost:1337",
     prefix: "/api",

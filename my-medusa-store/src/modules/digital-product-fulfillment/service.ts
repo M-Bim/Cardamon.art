@@ -1,10 +1,10 @@
 import { AbstractFulfillmentProviderService } from "@medusajs/framework/utils";
 import {
-  CreateFulfillmentResult,
+  CreateFulfillmentDTO,
   FulfillmentDTO,
   FulfillmentItemDTO,
   FulfillmentOption,
-  FulfillmentOrderDTO,
+  FulfillmentProviderDTO,
 } from "@medusajs/framework/types";
 
 class DigitalProductFulfillmentService extends AbstractFulfillmentProviderService {
@@ -23,29 +23,32 @@ class DigitalProductFulfillmentService extends AbstractFulfillmentProviderServic
   }
 
   async validateFulfillmentData(
-    optionData: Record<string, unknown>,
+    _optionData: Record<string, unknown>,
     data: Record<string, unknown>,
-    context: Record<string, unknown>,
+    _context: Record<string, unknown>,
   ): Promise<any> {
     return data;
   }
 
-  async validateOption(data: Record<string, any>): Promise<boolean> {
+  async validateOption(_data: Record<string, any>): Promise<boolean> {
     return true;
   }
 
   async createFulfillment(
-    data: Record<string, unknown>,
-    items: Partial<Omit<FulfillmentItemDTO, "fulfillment">>[],
-    order: Partial<FulfillmentOrderDTO> | undefined,
-    fulfillment: Partial<
+    _data: Record<string, unknown>,
+    _items: Partial<Omit<FulfillmentItemDTO, "fulfillment">>[],
+    _order: Partial<FulfillmentProviderDTO> | undefined,
+    _fulfillment: Partial<
       Omit<FulfillmentDTO, "provider_id" | "data" | "items">
     >,
-  ): Promise<CreateFulfillmentResult> {
-    // No data is being sent anywhere
+  ): Promise<CreateFulfillmentDTO> {
     return {
-      data,
+      data: {},
       labels: [],
+      location_id: "",
+      provider_id: "digital",
+      delivery_address: {},
+      items: [],
     };
   }
 

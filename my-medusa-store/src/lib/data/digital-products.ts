@@ -22,23 +22,3 @@ export const getCustomerDigitalProducts = async () => {
 
   return digital_products as DigitalProduct[];
 };
-
-export const getDigitalMediaDownloadLink = async (mediaId: string) => {
-  const headers = {
-    ...(await getAuthHeaders()),
-  };
-
-  const next = {
-    ...(await getCacheOptions("products")),
-  };
-  const { url } = await sdk.client.fetch<{
-    url: string;
-  }>(`/store/customers/me/digital-products/${mediaId}/download`, {
-    method: "POST",
-    headers,
-    next,
-    cache: "force-cache",
-  });
-
-  return url;
-};

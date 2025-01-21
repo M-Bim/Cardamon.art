@@ -1,12 +1,14 @@
 // other imports...
 import { Photo } from "@medusajs/icons";
+import { ChevronDown } from "@medusajs/icons";
+import { LocalizedClientLink } from "@medusajs/medusa-js";
+import { AccountNavLink } from "@medusajs/medusa-react";
+import { useRouter } from "@medusajs/medusa-js";
+import type { Customer } from "@medusajs/medusa-js";
 
-const AccountNav = ({
-  customer,
-}: {
-  customer: HttpTypes.StoreCustomer | null;
-}) => {
-  // ...
+const AccountNav = ({ customer }: { customer: Customer | null }) => {
+  const router = useRouter();
+  const route = router.pathname;
 
   return (
     <div>
@@ -34,7 +36,7 @@ const AccountNav = ({
         <li>
           <AccountNavLink
             href="/account/digital-products"
-            route={route!}
+            route={route}
             data-testid="digital-products-link"
           >
             Digital Products
@@ -45,3 +47,5 @@ const AccountNav = ({
     </div>
   );
 };
+
+export default AccountNav;
