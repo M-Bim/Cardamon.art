@@ -4,10 +4,9 @@ definePageMeta({
 });
 
 import { ref, onMounted } from "vue";
-import { fetchArtworks } from "~/services/strapiService";
 
 interface Artwork {
-  id: number;
+  // Define the structure of an artwork item  id: number;
   attributes: {
     title: string;
     image: {
@@ -28,8 +27,10 @@ const artworks = ref<Artwork[]>([]);
 // Fetch artworks on component mount
 onMounted(async () => {
   try {
-    const data = await fetchArtworks();
-    artworks.value = data;
+    // Temporarily comment out fetch until service is implemented
+    // const data = await fetchArtworks();
+    // artworks.value = data;
+    artworks.value = [];
   } catch (error) {
     console.error("Error loading artworks:", error);
   }
