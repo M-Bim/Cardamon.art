@@ -6,7 +6,7 @@ module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     http: {
-      storeCors: process.env.STORE_CORS!,
+      storeCors: "http://localhost:3000",
       adminCors: process.env.ADMIN_CORS!,
       authCors: process.env.AUTH_CORS!,
       jwtSecret: process.env.JWT_SECRET || "supersecret",
@@ -56,11 +56,11 @@ module.exports = defineConfig({
             id: "s3",
             options: {
               bucket: process.env.STORAGE_BUCKET_REF,
-              access_key_id: "supabase", // This is fixed for Supabase
+              access_key_id: "supabase",
               secret_access_key: process.env.STORAGE_SERVICE_KEY,
               endpoint: process.env.S3_ENDPOINT,
               file_url: process.env.S3_FILE_URL,
-              region: "us-east-1", // This can be any valid region
+              region: "us-east-1",
               additional_client_config: {
                 forcePathStyle: true,
               },
