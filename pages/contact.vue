@@ -28,20 +28,22 @@ const socialLinks = [
 </script>
 
 <template>
-  <div class="p-4">
-    <h1 class="text-2xl font-bold mb-6">Follow Me</h1>
+  <Main title="Contact">
+    <div class="p-4">
+      <h1 class="text-2xl font-bold mb-6">Follow Me</h1>
 
-    <div class="flex flex-col gap-4">
-      <NuxtLink
-        v-for="link in socialLinks"
-        :key="link.name"
-        :to="link.url"
-        target="_blank"
-        class="flex items-center gap-2 p-2 rounded-lg hover:bg-lime-300 transition-colors"
-      >
-        <UIcon :name="link.icon" class="text-2xl" />
-        {{ link.name }}
-      </NuxtLink>
+      <div class="flex flex-col gap-4">
+        <NuxtLink
+          v-for="link in socialLinks"
+          :key="link.name"
+          :to="link.url"
+          target="_blank"
+          class="flex items-center gap-2 p-2 rounded-lg hover:bg-lime-300 transition-colors"
+        >
+          <UIcon :name="link.icon" class="text-2xl" />
+          {{ link.name }}
+        </NuxtLink>
+      </div>
     </div>
-  </div>
+  </Main>
 </template>

@@ -3,10 +3,12 @@
     {{ title }}
   </h1>
   <div
-    class="border-2 border-slate-200 shadow-slate-200 bg-slate-50 shadow-md text-slate-500 col-span-10 row-span-10 col-start-3 row-start-3 overflow-auto"
+    class="h-full bg-slate-50 border-2 shadow-md shadow-slate-300 text-slate-500 col-span-12 row-span-12 col-start-3 row-start-3"
   >
-    <div class="mx-4">
-      <slot />
+    <div class="h-[calc(100%-4rem)]">
+      <div class="px-4 py-3">
+        <slot />
+      </div>
     </div>
   </div>
 </template>

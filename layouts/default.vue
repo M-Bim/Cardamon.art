@@ -3,7 +3,9 @@ import Main from "@/components/Main.vue";
 import Header from "@/components/Header.vue";
 import Navbar from "@/components/Navbar.vue";
 
-defineSlots();
+definePageMeta({
+  slots: ['default']
+});
 </script>
 
 <template>

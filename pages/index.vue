@@ -3,4 +3,10 @@ definePageMeta({
   layout: "default",
 });
 </script>
-<template></template>
+<template>
+  <Main title="Home">
+    <div>
+      <h3>hi</h3>
+    </div>
+  </Main>
+</template>

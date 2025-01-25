@@ -1,18 +1,22 @@
 <template>
-  <Main title="Gallery">
-    <Artimage :items="artworks" empty-message="No artwork available yet!">
-      <!-- Optional: Add additional content for each card -->
+  <Main title="Art">
+    <ArtGrid :items="artworks" empty-message="No artwork available yet!">
       <template #additional-content="{ item }">
         <div class="mt-2">
           <p class="text-sm text-slate-500">{{ item.date }}</p>
-          <!-- Add any other custom content -->
         </div>
       </template>
-    </Artimage>
+    </ArtGrid>
   </Main>
 </template>
 
 <script setup>
+import { ref } from "vue";
+
+definePageMeta({
+  layout: "default",
+});
+
 const artworks = ref([
   {
     id: 1,

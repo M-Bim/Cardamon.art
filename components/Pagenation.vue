@@ -13,7 +13,7 @@ const props = defineProps({
 });
 
 const currentPage = ref(1);
-const contentRef = ref(null);
+const contentRef = ref<HTMLElement | null>(null);
 const showPagination = ref(false);
 
 const pageCount = computed(() =>

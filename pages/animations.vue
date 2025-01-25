@@ -5,7 +5,9 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <h1>Animations Page</h1>
-  </div>
+  <Main title="Animations">
+    <div>
+      <h1>Animations Page</h1>
+    </div>
+  </Main>
 </template>
