@@ -1,23 +1,25 @@
 <script setup lang="ts">
+fetch(`http://localhost:9000/store/products`, {
+  credentials: "include",
+  headers: {
+    "x-publishable-api-key":
+      process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "temp",
+  },
+})
+  .then((res) => res.json())
+  .then((data) => {
+    // use products...
+    console.log(data.products);
+  });
 definePageMeta({
-    layout: "default",
+  layout: "default",
 });
-// supabaseService.js
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = "https://<your-project>.supabase.co";
-const supabaseKey = "<your-anon-key>";
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-export async function fetchArtData() {
-    const { data, error } = await supabase.from("art_table").select("*");
-    if (error) throw error;
-    return data;
-}
 </script>
 
 <template>
+  <Main title="Animations">
     <div>
-        <h1>Animations Page</h1>
+      <h1>Animations Page</h1>
     </div>
+  </Main>
 </template>

@@ -1,8 +1,11 @@
 import DigitalProductModule from "../modules/digital-product";
-import ProductModule from "@medusajs/medusa/product";
+import OrderModule from "@medusajs/medusa/order";
 import { defineLink } from "@medusajs/framework/utils";
 
 export default defineLink(
-  DigitalProductModule.linkable.digitalProduct,
-  ProductModule.linkable.productVariant,
+  {
+    linkable: DigitalProductModule.linkable.digitalProductOrder,
+    deleteCascade: true,
+  },
+  OrderModule.linkable.order,
 );

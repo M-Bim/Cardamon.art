@@ -17,10 +17,135 @@ const CreateDigitalProductForm = ({ onSuccess }: Props) => {
   const [productTitle, setProductTitle] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // TODO handle submit
+  const uploadMediaFiles = async (type: MediaType) => {
+    const formData = new FormData();
+    const mediaWithFiles = medias.filter(
+      (media) => media.file !== undefined && media.type === type,
+    );
+
+    if (!mediaWithFiles.length) {
+      return;
+    }
+
+    mediaWithFiles.forEach((media) => {
+      if (!media.file) {
+        return;
+      }
+      formData.append("files", media.file);
+    });
+
+    const { files } = await fetch(`/admin/digital-products/upload/${type}`, {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    }).then((res) => res.json());
+
+    return {
+      mediaWithFiles,
+      files,
+    };
   };
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { mediaWithFiles: previewMedias, files: previewFiles } =
+        (await uploadMediaFiles(MediaType.PREVIEW)) || {};
+      const { mediaWithFiles: mainMedias, files: mainFiles } =
+        (await uploadMediaFiles(MediaType.MAIN)) || {};
+
+      const mediaData: {
+        type: MediaType;
+        file_id: string;
+        mime_type: string;
+      }[] = [];
+
+      previewMedias?.forEach((media, index) => {
+        mediaData.push({
+          type: media.type,
+          file_id: previewFiles[index].id,
+          mime_type: media.file!.type,
+        });
+      });
+
+      mainMedias?.forEach((media, index) => {
+        mediaData.push({
+          type: media.type,
+          file_id: mainFiles[index].id,
+          mime_type: media.file!.type,
+        });
+      });
+
+      fetch(`/admin/digital-products`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          medias: mediaData,
+          product: {
+            title: productTitle,
+            options: [
+              {
+                title: "Default",
+                values: ["default"],
+              },
+            ],
+            variants: [
+              {
+                title: productTitle,
+                options: {
+                  Default: "default",
+                },
+                // delegate setting the prices to the
+                // product's page.
+                prices: [],
+              },
+            ],
+          },
+        }),
+      })
+        .then((res) => res.json())
+        .then(({ message }) => {
+          if (message) {
+            throw message;
+          }
+          onSuccess?.();
+        })
+        .catch((e) => {
+          console.error(e);
+          toast.error("Error", {
+            description: `An error occurred while creating the digital product: ${e}`,
+          });
+        })
+        .finally(() => setLoading(false));
+    } catch (e) {
+      console.error(e);
+      setLoading(false);
+    }
+  };
+  const onAddMedia = () => {
+    setMedias((prev) => [
+      ...prev,
+      {
+        type: MediaType.PREVIEW,
+      },
+    ]);
+  };
+  const changeFiles = (index: number, data: Partial<CreateMedia>) => {
+    setMedias((prev) => [
+      ...prev.slice(0, index),
+      {
+        ...prev[index],
+        ...data,
+      },
+      ...prev.slice(index + 1),
+    ]);
+  };
   return (
     <form onSubmit={onSubmit}>
       <Input
@@ -59,7 +184,7 @@ const CreateDigitalProductForm = ({ onSuccess }: Props) => {
               type="file"
               onChange={(e) =>
                 changeFiles(index, {
-                  file: e.target.files[0],
+                  file: e.target.files?.[0],
                 })
               }
               className="mt-2"
@@ -84,49 +209,4 @@ const CreateDigitalProductForm = ({ onSuccess }: Props) => {
   );
 };
 
-const onAddMedia = () => {
-  setMedias((prev) => [
-    ...prev,
-    {
-      type: MediaType.PREVIEW,
-    },
-  ]);
-};
-
-const changeFiles = (index: number, data: Partial<CreateMedia>) => {
-  setMedias((prev) => [
-    ...prev.slice(0, index),
-    {
-      ...prev[index],
-      ...data,
-    },
-    ...prev.slice(index + 1),
-  ]);
-};
-
-const uploadMediaFiles = async (type: MediaType) => {
-  const formData = new FormData();
-  const mediaWithFiles = medias.filter(
-    (media) => media.file !== undefined && media.type === type,
-  );
-
-  if (!mediaWithFiles.length) {
-    return;
-  }
-
-  mediaWithFiles.forEach((media) => {
-    formData.append("files", media.file);
-  });
-
-  const { files } = await fetch(`/admin/digital-products/upload/${type}`, {
-    method: "POST",
-    credentials: "include",
-    body: formData,
-  }).then((res) => res.json());
-
-  return {
-    mediaWithFiles,
-    files,
-  };
-};
 export default CreateDigitalProductForm;

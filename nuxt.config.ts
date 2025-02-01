@@ -2,21 +2,33 @@
 import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      medusaBackendUrl:
+        process.env.NUXT_PUBLIC_MEDUSA_BACKEND_URL || "http://localhost:9000",
+    },
+  },
   compatibilityDate: "2024-11-01",
   future: { compatibilityVersion: 4 },
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
   modules: [
     "@nuxt/ui",
     "@nuxt/scripts",
     "@nuxt/image",
     "@nuxtjs/supabase",
-    "@nuxthub/core",
     "@nuxtjs/medusa",
     "@nuxtjs/seo",
     "@nuxt/content",
     "@nuxt/fonts",
     "@vueuse/nuxt",
     "nuxt-auth-utils",
+    "@nuxtjs/strapi",
   ],
   supabase: {
     url: process.env.SUPABASE_URL,
@@ -31,45 +43,24 @@ export default defineNuxtConfig({
     },
   },
   image: {
-    domains: ["https://zvplqgopkztvgbwknbwb.supabase.co"],
+    domains: ["https://nsruyswcwxsrsqwwmnjt.co"],
     providers: {
       myProvider: {
         name: "supabase",
         provider: "~/providers/supabase.ts",
         options: {
-          baseURL: "https://zvplqgopkztvgbwknbwb.supabase.co",
+          baseURL: "https://nsruyswcwxsrsqwwmnjt.supabase.co",
         },
       },
     },
   },
-  hub: {
-    blob: true,
-    navigation: true,
-    environment: {
-      MEDUSA_BACKEND_URL: process.env.MEDUSA_BACKEND_URL,
-    },
-    api: {
-      baseURL: "/api/_hub",
-      cors: true,
-      endpoints: {
-        medusa: {
-          url: process.env.MEDUSA_BACKEND_URL,
-          prefix: "/store",
-        },
-      },
-    },
-  },
-  app: {
-    head: {
-      charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1",
-    },
-  },
-  content: {
-    documentDriven: true,
-  },
-  experimental: {
-    viewTransition: true,
-    componentIslands: true,
+
+  strapi: {
+    url: process.env.STRAPI_URL || "http://localhost:1337",
+    prefix: "/api",
+    admin: "/admin",
+    version: "v5",
+    cookie: {},
+    cookieName: "strapi_jwt",
   },
 });
