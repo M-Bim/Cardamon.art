@@ -69,5 +69,20 @@ module.exports = defineConfig({
         ],
       },
     },
+    {
+      resolve: "@medusajs/medusa/payment",
+      options: {
+        providers: [
+          {
+            resolve: "./src/modules/my-payment",
+            id: "my-payment",
+            options: {
+              // provider options...
+              apiKey: "...",
+            },
+          },
+        ],
+      },
+    },
   ],
 });

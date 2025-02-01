@@ -2,6 +2,12 @@
 import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      medusaBackendUrl:
+        process.env.NUXT_PUBLIC_MEDUSA_BACKEND_URL || "http://localhost:9000",
+    },
+  },
   compatibilityDate: "2024-11-01",
   future: { compatibilityVersion: 4 },
   devtools: {
