@@ -24,8 +24,10 @@
     "@vueuse/core": "11.1.0",
     "@vueuse/nuxt": "11.1.0",
     "nuxt-auth-utils": "0.4.2",
+    "nuxt-directus": "^5.7.0",
     "vue": "latest",
     "vue-advanced-cropper": "2.8.9",
+    "vue-easy-lightbox": "^1.19.0",
     "vue-router": "latest"
   },
   "devDependencies": {

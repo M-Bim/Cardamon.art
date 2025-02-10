@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "nuxt-auth-utils",
     "@nuxtjs/strapi",
+    "nuxt-directus",
   ],
   supabase: {
     url: process.env.SUPABASE_URL,
@@ -37,24 +38,18 @@ export default defineNuxtConfig({
     },
   },
   image: {
-    domains: ["https://nsruyswcwxsrsqwwmnjt.co"],
-    providers: {
-      myProvider: {
-        name: "supabase",
-        provider: "~/providers/supabase.ts",
-        options: {
-          baseURL: "https://nsruyswcwxsrsqwwmnjt.supabase.co",
-        },
-      },
+    directus: {
+      // This URL needs to include the final `assets/` directory
+      baseURL: "http://localhost:8055/assets/",
     },
   },
-
-  strapi: {
-    url: process.env.STRAPI_URL || "http://localhost:1337",
-    prefix: "/api",
-    admin: "/admin",
-    version: "v5",
-    cookie: {},
-    cookieName: "strapi_jwt",
+  runtimeConfig: {
+    public: {
+      directus: {
+        url: "",
+        autofetch: true,
+        devtools: true,
+      },
+    },
   },
 });

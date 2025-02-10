@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "directus": "^11.4.0"
+    "@directus/sdk": "^18.0.3",
+    "directus": "^11.3.5",
+    "pg": "^8.13.1"
   }
 }

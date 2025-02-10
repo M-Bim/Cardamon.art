@@ -1,85 +1,78 @@
 <template>
-  <div v-if="items.length > 0">
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-      <div
-        v-for="item in items"
-        :key="item.id"
-        @click="selectedItem = item"
-        class="aspect-square cursor-pointer relative group"
-      >
-        <div class="w-full h-full bg-slate-200 rounded-lg overflow-hidden">
-          <img
-            :src="item.image"
-            :alt="item.title"
-            class="w-full h-full object-cover"
-          />
-        </div>
-        <div
-          class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 rounded-lg"
-        />
-      </div>
+  <Title>Art</Title>
+  <div
+    class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 px-0 py-0"
+  >
+    <div
+      v-for="(item, index) in items"
+      :key="item.id"
+      class="w-32 h-24 rounded-xl overflow-hidden cursor-pointer"
+      @click="openLightbox(index)"
+    >
+      <NuxtImg
+        v-if="item.image"
+        :src="getImageUrl(item.image)"
+        :alt="item.title"
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+      <div v-else class="w-full h-full bg-gray-300"></div>
     </div>
 
-    <!-- Modal -->
-    <Transition
-      enter-active-class="transition duration-300 ease-out"
-      enter-from-class="transform opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition duration-200 ease-in"
-      leave-from-class="opacity-100"
-      leave-to-class="transform opacity-0"
-    >
-      <div
-        v-if="selectedItem"
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
-        @click="selectedItem = null"
-      >
-        <div class="bg-white rounded-lg max-w-2xl w-full p-6" @click.stop>
-          <h3 class="text-xl font-semibold text-slate-800">
-            {{ selectedItem.title }}
-          </h3>
-          <p class="text-slate-600 mt-2">{{ selectedItem.description }}</p>
-          <slot name="additional-content" :item="selectedItem"></slot>
-          <button
-            @click="selectedItem = null"
-            class="mt-4 px-4 py-2 bg-slate-200 rounded-lg hover:bg-slate-300 transition-colors"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </Transition>
+    <div v-if="!items?.length" class="col-span-full text-center">
+      {{ emptyMessage }}
+    </div>
   </div>
 
-  <div v-else class="text-center p-8">
-    <p class="text-xl font-semibold text-slate-500">{{ emptyMessage }}</p>
-  </div>
+  <vue-easy-lightbox
+    :visible="isShowLightbox"
+    :imgs="formattedImages"
+    :index="currentIndex"
+    @hide="closeLightbox"
+  />
 </template>
 
 <script setup>
-import { ref } from "vue";
-const artworks = ref([
-  {
-    id: 1,
-    title: "Artwork Title",
-    description: "Artwork description",
-    image: "/path-to-image.jpg",
-    date: "2023",
-  },
-  // More items...
-]);
-defineProps({
+import { ref, computed } from "vue";
+import VueEasyLightbox from "vue-easy-lightbox";
+
+const config = useRuntimeConfig();
+
+const props = defineProps({
   items: {
     type: Array,
-    required: true,
     default: () => [],
   },
-
   emptyMessage: {
     type: String,
-    default: "No items to display",
+    default: "No items available",
   },
 });
 
-const selectedItem = ref(null);
+const isShowLightbox = ref(false);
+const currentIndex = ref(0);
+
+// Helper function to get full image URL from Directus
+const getImageUrl = (imageId) => {
+  if (!imageId) return null;
+  return `${config.public.directusUrl}/assets/${imageId}`;
+};
+
+// Format images for lightbox
+const formattedImages = computed(() => {
+  return props.items.map((item) => ({
+    src: getImageUrl(item.image),
+    title: item.title,
+  }));
+});
+
+const openLightbox = (index) => {
+  currentIndex.value = index;
+  isShowLightbox.value = true;
+};
+
+const closeLightbox = () => {
+  isShowLightbox.value = false;
+};
 </script>
+```

@@ -16,15 +16,12 @@ import { ref } from "vue";
 definePageMeta({
   layout: "default",
 });
-
-const artworks = ref([
-  {
-    id: 1,
-    title: "Artwork Title",
-    description: "Artwork description",
-    image: "/path-to-image.jpg",
-    date: "2023",
+const { data: artworks } = await useFetch("/api/artworks", {
+  // Assuming you've set up your Directus endpoints in nuxt.config
+  baseURL: useRuntimeConfig().public.directusUrl,
+  params: {
+    fields: ["id", "title", "image", "date"], // adjust fields based on your collection
+    sort: ["date"], // optional sorting
   },
-  // More items...
-]);
+});
 </script>

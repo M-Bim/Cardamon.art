@@ -11,7 +11,7 @@ const items = [
   },
   {
     label: "What is Deirdre?",
-    content: "Deirdre is a webcomic series currently in development.",
+    content: "Deirdre is a Movie currently in development.",
     icon: "i-heroicons-question-mark-circle",
   },
   {
