@@ -2,6 +2,7 @@
 definePageMeta({
   layout: "default",
 });
+import {ref} from "vue";
 </script>
 
 <template>

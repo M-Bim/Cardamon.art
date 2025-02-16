@@ -11,8 +11,8 @@ const { data: global } = await useAsyncData("global", () => {
 <template>
   <Main title="Home">
     <div>
-      <h1>{{ global.title }}</h1>
-      <p>{{ global.description }}</p>
+      <h1>{{ global?.title }}</h1>
+      <p>{{ global?.description }}</p>
     </div>
   </Main>
 </template>

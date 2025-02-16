@@ -39,17 +39,43 @@ export default defineNuxtConfig({
   },
   image: {
     directus: {
-      // This URL needs to include the final `assets/` directory
-      baseURL: "http://localhost:8055/assets/",
+      baseURL: `${process.env.DIRECTUS_URL || 'http://localhost:8055'}/assets/`,
     },
   },
   runtimeConfig: {
     public: {
       directus: {
-        url: "",
+        url: process.env.DIRECTUS_URL || 'http://localhost:8055',
         autofetch: true,
         devtools: true,
       },
+      directusUrl: process.env.DIRECTUS_URL || 'http://localhost:8055',
     },
   },
+  experimental: {
+    watcher: "parcel",
+  },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
+      meta: [
+        { name: 'description', content: '[description]' },
+        { property: 'og:description', content: '[og:description]' },
+        { property: 'og:image', content: '[og:image]' },
+        { name: 'twitter:title', content: '[twitter:title]' },
+        { name: 'twitter:description', content: '[twitter:description]' },
+        { name: 'twitter:image', content: '[twitter:image]' },
+        { name: 'twitter:card', content: 'summary' }
+      ],
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/png',
+          href: '/favicon.png'
+        }
+      ]
+    }
+  }
 });

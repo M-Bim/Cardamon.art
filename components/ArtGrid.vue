@@ -1,5 +1,4 @@
 <template>
-  <Title>Art</Title>
   <div
     class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 px-0 py-0"
   >
@@ -75,4 +74,3 @@ const closeLightbox = () => {
   isShowLightbox.value = false;
 };
 </script>
-```

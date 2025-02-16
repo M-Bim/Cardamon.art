@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Main } from '#components';
+
 definePageMeta({
   layout: "default",
 });

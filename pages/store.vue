@@ -28,5 +28,5 @@ const storeItems = ref([
 </script>
 
 <template>
-  <Main title="Store"> </Main>
+  <Main :title="'Store'"> </Main>
 </template>

@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  layout: "default",
+});
+import {ref} from "vue";
+</script>
 
 <template>
   <div
@@ -10,7 +15,7 @@
       >Animations</NuxtLink
     >
     <NuxtLink to="/characters" class="hover:bg-slate-200 p-2 rounded"
-      >Charaters</NuxtLink
+      >Characters</NuxtLink
     >
     <NuxtLink to="/comics" class="hover:bg-slate-200 p-2 rounded"
       >Comics</NuxtLink

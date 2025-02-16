@@ -15,7 +15,7 @@ const items = [
     icon: "i-heroicons-question-mark-circle",
   },
   {
-    label: "What is TAOC?",
+    label: "What is The Autobiography of Cardamon?",
     content:
       "The Autobiography of Cardamon (TAOC) is a semi-autobiography written by me, Cardamon!",
     icon: "i-heroicons-question-mark-circle",

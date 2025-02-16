@@ -1,6 +1,6 @@
 <template>
   <Main title="Art">
-    <ArtGrid :items="artworks" empty-message="No artwork available yet!">
+    <ArtGrid :items="artworks || []" empty-message="No artwork available yet!">
       <template #additional-content="{ item }">
         <div class="mt-2">
           <p class="text-sm text-slate-500">{{ item.date }}</p>

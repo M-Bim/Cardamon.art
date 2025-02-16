@@ -2,14 +2,10 @@
 import Main from "@/components/Main.vue";
 import Header from "@/components/Header.vue";
 import Navbar from "@/components/Navbar.vue";
-
-definePageMeta({
-  slots: ['default']
-});
 </script>
 
 <template>
-  <div class="grid grid-cols-12 grid-rows-12 gap-4 h-screen p-4">
+  <div class="grid grid-cols-12 grid-rows-12 gap-4 h-screen p-2">
     <Navbar />
     <Header />
     <Main>
