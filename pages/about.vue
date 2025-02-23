@@ -6,12 +6,12 @@ const items = [
   {
     label: "Who is Cardamon?",
     content:
-      "Hi i'm Cardamon, I am an illustrator and soon-to-be author who specializes in character-driven artwork and storytelling.",
+      "Hi i'm Cardamon, I am an illustrator, Full Stack Developer,Singer,Writer,",
     icon: "i-heroicons-question-mark-circle",
   },
   {
     label: "What is Deirdre?",
-    content: "Deirdre is a Movie currently in development.",
+    content: "Deirdre is a Animated Movie currently in development. It's about a teenage ",
     icon: "i-heroicons-question-mark-circle",
   },
   {

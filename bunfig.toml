@@ -1,0 +1,6 @@
+[install]
+peer = true
+frozen = false
+
+[install.cache]
+dir = ".bun/cache"

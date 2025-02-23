@@ -2,11 +2,12 @@
   <div
     class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 px-0 py-0"
   >
-    <div
+    <NuxtLink
       v-for="(item, index) in items"
       :key="item.id"
+      :to="`/artwork/${item.slug}`"
       class="w-32 h-24 rounded-xl overflow-hidden cursor-pointer"
-      @click="openLightbox(index)"
+      @click.prevent="openLightbox(index)"
     >
       <NuxtImg
         v-if="item.image"
@@ -16,7 +17,7 @@
         loading="lazy"
       />
       <div v-else class="w-full h-full bg-gray-300"></div>
-    </div>
+    </NuxtLink>
 
     <div v-if="!items?.length" class="col-span-full text-center">
       {{ emptyMessage }}

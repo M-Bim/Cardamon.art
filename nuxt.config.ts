@@ -1,81 +1,112 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   future: { compatibilityVersion: 4 },
-  devtools: {
-    enabled: true,
+  devtools: { enabled: true },
 
-    timeline: {
-      enabled: true,
-    },
-  },
   modules: [
     "@nuxt/ui",
-    "@nuxt/scripts",
     "@nuxt/image",
     "@nuxtjs/supabase",
-    "@nuxtjs/medusa",
-    "@nuxtjs/seo",
     "@nuxt/content",
-    "@nuxt/fonts",
     "@vueuse/nuxt",
     "nuxt-auth-utils",
-    "@nuxtjs/strapi",
     "nuxt-directus",
+    "@nuxtjs/seo",
   ],
-  supabase: {
-    url: process.env.SUPABASE_URL,
-    key: process.env.SUPABASE_KEY,
-    serviceKey: process.env.SUPABASE_SERVICE_KEY,
-    redirect: false,
-    redirectOptions: {
-      login: "",
-      callback: "",
-      exclude: ["*"],
-      cookieRedirect: false,
-    },
-  },
-  image: {
-    directus: {
-      baseURL: `${process.env.DIRECTUS_URL || 'http://localhost:8055'}/assets/`,
-    },
-  },
+
+  // Type-safe supabase config
   runtimeConfig: {
-    public: {
-      directus: {
-        url: process.env.DIRECTUS_URL || 'http://localhost:8055',
-        autofetch: true,
-        devtools: true,
+    supabase: {
+      redirectOptions: {
+        login: "/",
+        callback: "/",
+        exclude: ["*"],
       },
-      directusUrl: process.env.DIRECTUS_URL || 'http://localhost:8055',
+      cookieOptions: {
+        maxAge: 60 * 60 * 8,
+        sameSite: "lax",
+        secure: true,
+      },
+      clientOptions: {
+        auth: {
+          persistSession: true,
+        },
+      },
+    },
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://cardamonkideki.art",
+      siteName: "cardamonkideki",
+      siteDescription: "card's website",
+      language: "en",
     },
   },
+
+  ogImage: {
+    component: "OgImage",
+    fonts: ["Roboto"],
+  },
+
+  // Site configuration
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL || "https://cardamonkideki.art",
+    name: "cardamonkideki",
+    description: "card's website",
+    defaultLocale: "en",
+  },
+
+  content: {
+    documentDrive: true,
+    experimental: {
+      clientDB: true,
+    },
+    dir: "content",
+    markdown: {
+      anchorLinks: true,
+      toc: {
+        depth: 3,
+        searchDepth: 3,
+      },
+    },
+    sources: {
+      content: {
+        driver: "fs",
+        base: "content",
+      },
+    },
+  },
+
+  image: {
+    domains: ["0.0.0.0"],
+    directus: {
+      baseURL: process.env.DIRECTUS_URL || "http://0.0.0.0:8055",
+    },
+  },
+
   experimental: {
     watcher: "parcel",
   },
+
   app: {
     head: {
       htmlAttrs: {
-        lang: 'en'
+        lang: "en",
       },
       meta: [
-        { name: 'description', content: '[description]' },
-        { property: 'og:description', content: '[og:description]' },
-        { property: 'og:image', content: '[og:image]' },
-        { name: 'twitter:title', content: '[twitter:title]' },
-        { name: 'twitter:description', content: '[twitter:description]' },
-        { name: 'twitter:image', content: '[twitter:image]' },
-        { name: 'twitter:card', content: 'summary' }
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "description", content: "card's website" },
+        { property: "og:description", content: "card's website" },
+        { name: "twitter:card", content: "summary" },
       ],
       link: [
         {
-          rel: 'icon',
-          type: 'image/png',
-          href: '/favicon.png'
-        }
-      ]
-    }
-  }
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon.png",
+        },
+      ],
+    },
+  },
 });

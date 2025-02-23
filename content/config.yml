@@ -1,0 +1,6 @@
+navigation: true
+defaultLocale: en
+sources:
+  content:
+    driver: fs
+    base: ./content

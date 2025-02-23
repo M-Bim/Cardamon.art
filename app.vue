@@ -3,7 +3,7 @@
     <NuxtPage />
   </NuxtLayout>
 </template>
+
 <script setup>
-const { $directus } = useNuxtApp();
-console.log($directus);
+const { $directus } = useNuxtApp()
 </script>
