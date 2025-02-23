@@ -1,0 +1,93 @@
+"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":semanticCommits",
+    ":automergePatch",
+    ":automergeMinor",
+    ":enableVulnerabilityAlerts",
+    ":maintainLockFilesWeekly"
+  ],
+  "schedule": ["every weekend"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@nuxt", "^nuxt"],
+      "groupName": "Nuxt packages",
+      "automerge": true,
+      "major": {
+        "automerge": false
+      }
+    },
+    {
+      "matchPackagePatterns": ["^@directus"],
+      "groupName": "Directus packages",
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["^@supabase"],
+      "groupName": "Supabase packages",
+      "automerge": true
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    },
+    {
+      "matchPackageNames": ["bun"],
+      "matchPackagePatterns": ["^bun-"],
+      "groupName": "Bun packages",
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["^@types/"],
+      "groupName": "Type definitions",
+      "automerge": true
+    }
+  ],
+  "ignoreDeps": [
+    // Add any dependencies you want to ignore
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  },
+  "labels": [
+    "dependencies"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 5am on monday"]
+  },
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 4,
+  "timezone": "America/New_York",
+  "dependencyDashboard": true,
+  "major": {
+    "labels": ["major-update"]
+  },
+  "minor": {
+    "labels": ["minor-update"]
+  },
+  "patch": {
+    "labels": ["patch-update"]
+  },
+  "pin": {
+    "labels": ["pin-update"]
+  },
+  "rangeStrategy": "bump",
+  "stabilityDays": 3,
+  "internalChecksFilter": "strict",
+  "platformAutomerge": true,
+  "gitIgnoredAuthors": ["renovate[bot]@users.noreply.github.com"],
+  "separateMajorMinor": true,
+  "separateMultipleMajor": true,
+  "separateMinorPatch": false,
+  "ignoreUnstable": true,
+  "rebaseWhen": "auto",
+  "assignees": [
+    // Add your GitHub username here
+  ],
+  "reviewers": [
+    // Add GitHub usernames for reviewers
+  ]
+}

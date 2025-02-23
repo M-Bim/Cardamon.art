@@ -1,0 +1,32 @@
+[
+  {
+    "name": "dependencies",
+    "color": "0366d6",
+    "description": "Pull requests that update a dependency file"
+  },
+  {
+    "name": "security",
+    "color": "ee0701",
+    "description": "Security-related changes"
+  },
+  {
+    "name": "major-update",
+    "color": "b60205",
+    "description": "Major version updates"
+  },
+  {
+    "name": "minor-update",
+    "color": "0e8a16",
+    "description": "Minor version updates"
+  },
+  {
+    "name": "patch-update",
+    "color": "1BB0CE",
+    "description": "Patch version updates"
+  },
+  {
+    "name": "pin-update",
+    "color": "FFD700",
+    "description": "Version pinning updates"
+  }
+]

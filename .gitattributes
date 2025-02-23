@@ -1,0 +1,4 @@
+bun.lockb binary
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
