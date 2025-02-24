@@ -23,10 +23,5 @@
     "name": "patch-update",
     "color": "1BB0CE",
     "description": "Patch version updates"
-  },
-  {
-    "name": "pin-update",
-    "color": "FFD700",
-    "description": "Version pinning updates"
   }
 ]

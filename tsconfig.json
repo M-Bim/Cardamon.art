@@ -1,5 +1,5 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
+  "extends": ["./.nuxt/tsconfig.json"],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -11,7 +11,12 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
-    "types": ["@types/node", "@nuxt/types", "@nuxt/content"]
+    "types": [
+      "@types/node",
+      "@nuxtjs/supabase",
+      "@vueuse/nuxt",
+      "nuxt-auth-utils"
+    ]
   },
   "include": [
     "./**/*.ts",

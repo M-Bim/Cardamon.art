@@ -16,46 +16,37 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
   ],
 
-  // Type-safe supabase config
-  runtimeConfig: {
-    supabase: {
-      redirectOptions: {
-        login: "/",
-        callback: "/",
-        exclude: ["*"],
-      },
-      cookieOptions: {
-        maxAge: 60 * 60 * 8,
-        sameSite: "lax",
-        secure: true,
-      },
-      clientOptions: {
-        auth: {
-          persistSession: true,
-        },
-      },
+  // Supabase config
+  supabase: {
+    redirect: false,
+    redirectOptions: {
+      login: "/",
+      callback: "/",
+      exclude: ["*"],
     },
-    public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://cardamonkideki.art",
-      siteName: "cardamonkideki",
-      siteDescription: "card's website",
-      language: "en",
+    cookieOptions: {
+      maxAge: 60 * 60 * 8,
+      sameSite: "lax",
+      secure: true,
+    },
+    clientOptions: {
+      auth: {
+        persistSession: true,
+      },
     },
   },
 
-  ogImage: {
-    component: "OgImage",
-    fonts: ["Roboto"],
+  // Nitro configuration
+  nitro: {
+    storage: {
+      data: {
+        driver: 'fs',
+        base: './data'
+      }
+    }
   },
 
-  // Site configuration
-  site: {
-    url: process.env.NUXT_PUBLIC_SITE_URL || "https://cardamonkideki.art",
-    name: "cardamonkideki",
-    description: "card's website",
-    defaultLocale: "en",
-  },
-
+  // Content configuration
   content: {
     documentDrive: true,
     experimental: {
@@ -69,14 +60,16 @@ export default defineNuxtConfig({
         searchDepth: 3,
       },
     },
+    // Remove git driver, use filesystem instead
     sources: {
       content: {
-        driver: "fs",
-        base: "content",
-      },
+        driver: 'fs',
+        base: './content'
+      }
     },
   },
 
+  // Image configuration
   image: {
     domains: ["0.0.0.0"],
     directus: {
@@ -84,15 +77,39 @@ export default defineNuxtConfig({
     },
   },
 
+  // Performance optimizations
   experimental: {
     watcher: "parcel",
+    payloadExtraction: false,
+    inlineSSRStyles: false
   },
 
+  // Watcher configuration
+  watchers: {
+    webpack: {
+      ignored: [
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/.nuxt/**'
+      ]
+    },
+
+    chokidar: {
+        ignoreInitial: true,
+        ignorePermissionErrors: true,
+        usePolling: true,
+        interval: 1000
+      }
+     }
+
+  },
+
+  watch: ['./components/**/*', './pages/**/*', './layouts/**/*'],
+
+  // Site meta configuration
   app: {
     head: {
-      htmlAttrs: {
-        lang: "en",
-      },
+      htmlAttrs: { lang: "en" },
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -109,4 +126,14 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  // Runtime config
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://cardamonkideki.art",
+      siteName: "cardamonkideki",
+      siteDescription: "card's website",
+      language: "en",
+    }
+  }
 });

@@ -1,0 +1,23 @@
+name: Repository Setup
+on:
+  push:
+    paths:
+      - ".github/repository-config.json"
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      repository-projects: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Repository Settings
+        uses: repository-settings/action@v3
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: .github/repository-config.json

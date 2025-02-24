@@ -15,10 +15,13 @@ services:
       DB_DATABASE: 'directus'
       DB_USER: 'postgres'
       DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_SSL: 'false'
+      DB_SSL_REJECT_UNAUTHORIZED: 'false'
     volumes:
       - ./uploads:/directus/uploads
     depends_on:
       - postgres
+    restart: unless-stopped
 
   postgres:
     image: postgres:latest

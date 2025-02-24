@@ -1,41 +1,49 @@
 name: Renovate
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Run weekly on Sundays
+    - cron: "0 0 * * 0" # Run weekly on Sundays
   workflow_dispatch:
   push:
     branches:
       - main
     paths:
-      - '.github/renovate.json'
-      - '.github/workflows/renovate.yml'
+      - ".github/renovate.json"
+      - ".github/workflows/renovate.yml"
 
 jobs:
   renovate:
     runs-on: ubuntu-latest
+    permissions: # Add explicit permissions
+      contents: write
+      issues: write
+      pull-requests: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: "lts/*"
 
-      - name: Install Labels
+      - name: Install github-label-sync
+        run: npm install -g github-label-sync
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync Labels
         run: |
-          npm install -g github-label-sync
-          github-label-sync --access-token ${{ secrets.GITHUB_TOKEN }} --labels .github/labels.json ${{ github.repository }}
+          github-label-sync \
+            --access-token ${{ secrets.GITHUB_TOKEN }} \
+            --labels .github/labels.json \
+            ${{ github.repository }}
+        continue-on-error: true
 
       - name: Renovate
-        uses: renovatebot/github-action@v39.1.1
+        uses: renovatebot/github-action@v39.1.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           configurationFile: .github/renovate.json
         env:
-          LOG_LEVEL: 'debug'
+          LOG_LEVEL: "debug"

@@ -1,0 +1,15 @@
+{
+  "name": "Cardamon.art",
+  "description": "Cardamon's art portfolio website",
+  "topics": ["art", "portfolio", "nuxt", "vue"],
+  "has_wiki": false,
+  "has_projects": true,
+  "has_downloads": false,
+  "default_branch": "main",
+  "allow_squash_merge": true,
+  "allow_merge_commit": false,
+  "allow_rebase_merge": true,
+  "delete_branch_on_merge": true,
+  "enable_automated_security_fixes": true,
+  "enable_vulnerability_alerts": true
+}
