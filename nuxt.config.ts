@@ -19,10 +19,8 @@ export default defineNuxtConfig({
   },
   modules: [
     "@nuxt/ui",
-    "@nuxt/scripts",
     "@nuxt/image",
     "@nuxtjs/supabase",
-    "@nuxtjs/medusa",
     "@nuxtjs/seo",
     "@nuxt/content",
     "@nuxt/fonts",
@@ -53,14 +51,5 @@ export default defineNuxtConfig({
         },
       },
     },
-  },
-
-  strapi: {
-    url: process.env.STRAPI_URL || "http://localhost:1337",
-    prefix: "/api",
-    admin: "/admin",
-    version: "v5",
-    cookie: {},
-    cookieName: "strapi_jwt",
   },
 });

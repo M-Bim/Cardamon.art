@@ -1,0 +1,72 @@
+{
+  "name": "nuxt-site-config",
+  "type": "module",
+  "version": "3.1.1",
+  "description": "Shared site configuration for Nuxt 3 modules.",
+  "author": {
+    "name": "Harlan Wilton",
+    "email": "harlan@harlanzw.com",
+    "url": "https://harlanzw.com/"
+  },
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/harlan-zw",
+  "homepage": "https://github.com/harlan-zw/nuxt-site-config#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harlan-zw/nuxt-site-config.git"
+  },
+  "bugs": {
+    "url": "https://github.com/harlan-zw/nuxt-site-config/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    },
+    "./kit": {
+      "types": "./dist/kit.d.ts",
+      "import": "./dist/kit.mjs"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.mjs"
+    },
+    "./urls": {
+      "types": "./dist/urls.d.ts",
+      "import": "./dist/urls.mjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist",
+    "kit.d.ts",
+    "utils.d.ts"
+  ],
+  "dependencies": {
+    "@nuxt/kit": "^3.15.4",
+    "pathe": "^2.0.3",
+    "pkg-types": "^1.3.1",
+    "sirv": "^3.0.1",
+    "ufo": "^1.5.4",
+    "site-config-stack": "3.1.1",
+    "nuxt-site-config-kit": "3.1.1"
+  },
+  "devDependencies": {
+    "@nuxt/schema": "^3.15.4"
+  },
+  "build": {
+    "externals": [
+      "@nuxt/schema"
+    ]
+  },
+  "scripts": {
+    "build": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt-module-build build",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build build --stub  && nuxt-module-build prepare",
+    "release": "bumpp package.json --commit --push --tag",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  }
+}
