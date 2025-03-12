@@ -1,0 +1,12 @@
+FROM oven/bun:1.2-slim
+
+WORKDIR /app
+
+# Set environment variables
+ENV HOST=0.0.0.0
+ENV PORT=3000
+
+EXPOSE 3000
+
+# Just keep the container running
+CMD ["tail", "-f", "/dev/null"]

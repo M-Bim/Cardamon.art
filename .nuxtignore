@@ -1,0 +1,5 @@
+node_modules/**
+dist/**
+ .git/**
+.nuxt/types/**
+my-medusa-store/**

@@ -1,0 +1,59 @@
+export const useSupabase = () => {
+  // Get the Supabase client from Nuxt's provided client
+  const supabase = useSupabaseClient()
+
+  return {
+    // Auth helper methods
+    signIn: async (email, password) => {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+      return { user: data.user, error };
+    },
+
+    signUp: async (email, password) => {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password
+      });
+      return { user: data.user, error };
+    },
+
+    signOut: async () => {
+      const { error } = await supabase.auth.signOut();
+      return { error };
+    },
+
+    // Database operations
+    fetch: async (table, query = {}) => {
+      const { data, error } = await supabase
+        .from(table)
+        .select()
+        .match(query);
+      return { data, error };
+    },
+
+    insert: async (table, data) => {
+      const { data: result, error } = await supabase
+        .from(table)
+        .insert(data);
+      return { data: result, error };
+    },
+update: async (table, data, match) => {
+      const { data: result, error } = await supabase
+        .from(table)
+        .update(data)
+        .match(match);
+      return { data: result, error };
+    },
+
+    delete: async (table, match) => {
+      const { data, error } = await supabase
+        .from(table)
+        .delete()
+        .match(match);
+      return { data, error };
+    }
+  };
+};
