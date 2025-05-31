@@ -1,72 +1,58 @@
-
-name: studio-nuxt-build
-run-name: studio nuxt build
+name: Deploy Nuxt site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches:
-      - 'main'
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: ["main"]
   workflow_dispatch:
 
-# Add write workflow permissions
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
-# Allow one concurrent deployment
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
-  # Build job
-  build-and-deploy:
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: .
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [20]
+  build:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Identify package manager
-        id: pkgman
-        run: |
-          cache=`[ -f "./bun.lock" ] && echo "bun" || ([ -f "./package-lock.json" ] && echo "bun" || ([ -f "./bun.lock" ] && echo "bun" || echo ""))`
-          package_manager=`[ ! -z "$cache" ] && echo "$cache" || echo "bun"`
-          echo "cache=$cache" >> $GITHUB_OUTPUT
-          echo "package_manager=$package_manager" >> $GITHUB_OUTPUT
-
-      - uses: bun/action-setup@v4
-        if: ${{ steps.pkgman.outputs.package_manager == 'bun' }}
-        name: Install bun
-        id: bun-install
-
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          version: ${{ matrix.node }}
-          cache: ${{ steps.pkgman.outputs.cache }}
+          node-version: "20"
+          cache: npm
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          static_site_generator: nuxt
 
       - name: Install dependencies
-        run: ${{ steps.pkgman.outputs.package_manager }} install
+        run: npm ci
 
-      - name: Generate
-        run: ${{ steps.pkgman.outputs.package_manager }} run build
+      - name: Static HTML export with Nuxt
+        run: npm run generate
         env:
           NITRO_PRESET: github_pages
-          NUXT_CONTENT_PREVIEW_API: https://api.nuxt.studio
-          
 
-      # Deployment job
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: ./.output/public
+          path: .output/public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
